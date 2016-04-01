@@ -1,8 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  canvas(id='testcanvas')
+  h1 Eyevinn Hackathon - ticker
+  p Powered by HTML5/Canvas
+  .container
+    video(id="videoplayer" autoplay loop width=640 src='videos/video1.mp4')
+    .mycanvascontainer
+      canvas(id='testcanvas')
   script(src='javascripts/paint-fabric.js')
-  script(src='javascripts/paint-native.js')
