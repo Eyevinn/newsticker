@@ -50,6 +50,10 @@ tickercontainer.hasBorders = false;
 tickercontainer.lockMovementX = true;
 tickercontainer.lockMovementY = true;
 
+function easeLinear(t, b, c, d) {
+    return c*t/d + b;
+};
+
 tickercontainer.animate('top', '325', { 
     onChange: canvas.renderAll.bind(canvas),
     duration: 1000,
@@ -60,6 +64,7 @@ function scrollLeft() {
     text.animate('left', -320-textcontent.length*10, {
         onChange: canvas.renderAll.bind(canvas),
         onComplete: scrollLeft,
+        easing: easeLinear,
         duration: 10000
     });
 }
