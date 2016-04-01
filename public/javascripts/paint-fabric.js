@@ -30,7 +30,8 @@ canvas.observe('mouse:up', function(options){
     }
     var num = (!video.src || video.src.match(/1/)) ? 2 : 1;
     video.src = "videos/video" + num + ".mp4";
-    //console.log(options.target)
+    tickercontainer.set('top',-30);
+    setTimeout(fallDown, 300);
 });
 
 var textcontent = getTickerText();
@@ -41,8 +42,7 @@ var text = new fabric.IText(textcontent, {
     fill: 'white' 
 });
 var tickercontainer = new fabric.Group([ ticker, text ], {
-    left: 0,
-    top: 0
+    left: 0
 });
 canvas.add(tickercontainer);
 tickercontainer.hasControls = false;
@@ -54,11 +54,16 @@ function easeLinear(t, b, c, d) {
     return c*t/d + b;
 };
 
-tickercontainer.animate('top', '325', { 
-    onChange: canvas.renderAll.bind(canvas),
-    duration: 1000,
-    easing: fabric.util.ease.easeOutBounce
-});
+function fallDown() {
+    tickercontainer.set('top',-30);
+    tickercontainer.animate('top', '325', { 
+        onChange: canvas.renderAll.bind(canvas),
+        duration: 1000,
+        easing: fabric.util.ease.easeOutBounce
+    });
+}
+fallDown();
+
 function scrollLeft() {
     text.set('left',300);
     text.animate('left', -320-textcontent.length*10, {
