@@ -30,16 +30,14 @@ canvas.observe('mouse:up', function(options){
     }
     var num = (!video.src || video.src.match(/1/)) ? 2 : 1;
     video.src = "videos/video" + num + ".mp4";
-    tickercontainer.set('top',-30);
-    setTimeout(fallDown, 300);
 });
 
 var textcontent = getTickerText();
 var text = new fabric.IText(textcontent, { 
-    top: 4, 
+    top: 6, 
     fontFamily: 'Verdana', 
     fontSize: 16, 
-    fill: 'white' 
+    fill: 'white'
 });
 var tickercontainer = new fabric.Group([ ticker, text ], {
     left: 0
@@ -49,6 +47,7 @@ tickercontainer.hasControls = false;
 tickercontainer.hasBorders = false;
 tickercontainer.lockMovementX = true;
 tickercontainer.lockMovementY = true;
+tickercontainer.set('hoverCursor','pointer');
 
 function easeLinear(t, b, c, d) {
     return c*t/d + b;
