@@ -6,6 +6,8 @@ function getTickerText() {
     return texts[Math.floor(Math.random() * texts.length)];
 }
 
+var video = document.getElementById('videoplayer');
+
 // create a wrapper around native canvas element (with id="c")
 var canvas = new fabric.Canvas('testcanvas');
 canvas.setHeight(363);
@@ -18,18 +20,14 @@ var ticker = new fabric.Rect({
      height: 30
 });
 
-canvas.observe('mouse:up', function(options){
-    var video = document.getElementById('videoplayer');
+canvas.on('mouse:up', function(options){
     if (!options.target) {
         if (video.paused) {
             video.play();
         } else {
             video.pause();
         }
-        return;
     }
-    var num = (!video.src || video.src.match(/1/)) ? 2 : 1;
-    video.src = "videos/video" + num + ".mp4";
 });
 
 var textcontent = getTickerText();
@@ -48,6 +46,18 @@ tickercontainer.hasBorders = false;
 tickercontainer.lockMovementX = true;
 tickercontainer.lockMovementY = true;
 tickercontainer.set('hoverCursor','pointer');
+tickercontainer.on('mousedown', sayHi);
+tickercontainer.on('mouseup', changeClip);
+tickercontainer.on('mousemove', sayHi);
+
+function changeClip(opt) {
+    var num = (!video.src || video.src.match(/1/)) ? 2 : 1;
+    video.src = "videos/video" + num + ".mp4";
+}
+
+function sayHi(obj) {
+    console.log("Hi " + (obj.e ? obj.e.type : obj));
+}
 
 function easeLinear(t, b, c, d) {
     return c*t/d + b;
